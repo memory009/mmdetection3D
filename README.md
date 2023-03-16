@@ -54,7 +54,7 @@ python pcd_demo.py ./data/kitti/kitti_000008.bin ../configs/second/hv_second_sec
 
 ### Pointcloud format Convert
 CARLA outputs .ply by default as a point cloud result, so we should convert the output from '.ply' to '.bin' using ```format_convert.py``` 
-![demo](/figrue/detect_000008.png)
+![demo](https://github.com/memory009/mmdetection3D/blob/main/figure/detect_000008.png)
 
 
 
