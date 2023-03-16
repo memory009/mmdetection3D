@@ -27,11 +27,6 @@ conda install pytorch torchvision cpuonly -c pytorch
 ```
 pip install openmim
 mim install mmcv-full
-mim install mmdet
-mim install mmsegmentation
-git clone https://github.com/open-mmlab/mmdetection3d.git
-cd mmdetection3d
-pip install -e .
 ```
 
 ### step 1. Install MMsegmentation:
@@ -39,15 +34,7 @@ pip install -e .
 pip install mmsegmentation
 ```
 
-### step 2.build for source:
-```
-git clone https://github.com/open-mmlab/mmsegmentation.git
-cd mmsegmentation
-git checkout v0.20.0  # switch to v0.20.0 branch
-pip install -e .  # or "python setup.py develop"
-```
-
-### step 3.Install build requirements and then install MMDetection3D:
+### step 2.Install build requirements and then install MMDetection3D:
 ```
 pip install -v -e .  # or "python setup.py develop"
 ```
