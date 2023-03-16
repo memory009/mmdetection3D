@@ -51,10 +51,11 @@ cd ~/mmdetection3d/demo
 python pcd_demo.py ./data/kitti/kitti_000008.bin ../configs/second/hv_second_secfpn_6x8_80e_kitti-3d-car.py ../checkpoints/hv_second_secfpn_6x8_80e_kitti-3d-car_20200620_230238-393f000c.pth --show
 # use the parameter '--show' can get a visualized detection output
 ```
+![demo](https://github.com/memory009/mmdetection3D/blob/main/figure/detect_000008.png)
+
 
 ### Pointcloud format Convert
 CARLA outputs .ply by default as a point cloud result, so we should convert the output from '.ply' to '.bin' using ```format_convert.py``` 
-![demo](https://github.com/memory009/mmdetection3D/blob/main/figure/detect_000008.png)
 
 
 
