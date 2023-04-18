@@ -6,14 +6,14 @@
 * MMCV
 ### step 0. Create a conda virtual environment
 ```
-conda create --n openmmlab python=3.8 -y
+conda create --n openmmlab python=3.7 -y
 conda activate openmmlab
 ```
 
 ### step 1.Install Pytorch following official instruction
 #### On GPU platforms(recommend):
 ```
-conda install pytorch torchvision -c pytorch
+pip3 install torch==1.10.2+cu113 torchvision==0.11.3+cu113 torchaudio==0.10.2+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
 ```
 
 #### On CPU platforms:
@@ -23,32 +23,47 @@ conda install pytorch torchvision cpuonly -c pytorch
 
 ## Installation
 
-### step 0. Install MMCV using MM.
+### step 0. Install MMEngine, MMCV and MMDetection using MIM.
 ```
-pip install openmim
-mim install mmcv-full
-```
-
-### step 1. Install MMsegmentation:
-```
-pip install mmsegmentation
+pip install -U openmim
+mim install mmengine
+mim install 'mmcv>=2.0.0rc4'
+mim install 'mmdet>=3.0.0'
 ```
 
-### step 2.Install build requirements and then install MMDetection3D:
+### step 1. Install MMDetection3D.
+develop and run mmdet3d directly, install it from source(build from source):
 ```
-pip install -v -e .  # or "python setup.py develop"
+git clone https://github.com/open-mmlab/mmdetection3d.git -b dev-1.x
+# "-b dev-1.x" means checkout to the `dev-1.x` branch.
+cd mmdetection3d
+pip install -v -e .
+# "-v" means verbose, or more output
+# "-e" means installing a project in edtiable mode,
+# thus any local modifications made to the code will take effect without reinstallation.
 ```
 
 ## Verification
 ### Verify with point cloud demo 
+To verify whether MMDetection3D is installed correctly, we provide some sample codes to run an inference demo.
+* Step 1. We need to download config and checkpoint files.
 ```
-python demo/pcd_demo.py ${PCD_FILE} ${CONFIG_FILE} ${CHECKPOINT_FILE} [--device ${GPU_ID}] [--score-thr ${SCORE_THR}] [--out-dir ${OUT_DIR}]
+mim download mmdet3d --config pointpillars_hv_secfpn_8xb6-160e_kitti-3d-car --dest .
+```
+The downloading will take several seconds or more, depending on your network environment. When it is done, you will find two files pointpillars_hv_secfpn_8xb6-160e_kitti-3d-car.py and hv_pointpillars_secfpn_6x8_160e_kitti-3d-car_20220331_134606-d42d15ed.pth in your current folder.
+
+* Step 2. Verify the inference demo.
+Case a: If you install MMDetection3D from source, just run the following command.
+```
+python demo/pcd_demo.py demo/data/kitti/000008.bin pointpillars_hv_secfpn_8xb6-160e_kitti-3d-car.py hv_pointpillars_secfpn_6x8_160e_kitti-3d-car_20220331_134606-d42d15ed.pth --show
 ```
 
 for example:
 ```
-cd ~/mmdetection3d/demo
-python pcd_demo.py ./data/kitti/kitti_000008.bin ../configs/second/hv_second_secfpn_6x8_80e_kitti-3d-car.py ../checkpoints/hv_second_secfpn_6x8_80e_kitti-3d-car_20200620_230238-393f000c.pth --show
+cd ~/mmdetection3d/
+python demo/pcd_demo.py demo/data/kitti/000008.bin pointpillars_hv_secfpn_8xb6-160e_kitti-3d-car.py hv_pointpillars_secfpn_6x8_160e_kitti-3d-car_20220331_134606-d42d15ed.pth --show
+
+
 # use the parameter '--show' can get a visualized detection output
 ```
 ![demo](https://github.com/memory009/mmdetection3D/blob/main/figure/detect_000008.png)
@@ -56,6 +71,5 @@ python pcd_demo.py ./data/kitti/kitti_000008.bin ../configs/second/hv_second_sec
 
 ### Pointcloud format Convert
 CARLA outputs .ply by default as a point cloud result, so we should convert the output from '.ply' to '.bin' using ```format_convert.py``` 
-
 
 
