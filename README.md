@@ -6,7 +6,7 @@
 * MMCV
 ### step 0. Create a conda virtual environment
 ```
-conda create --n openmmlab python=3.7 -y
+conda create -n openmmlab python=3.8 -y
 conda activate openmmlab
 ```
 
